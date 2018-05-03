@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Company{% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block extra_js %}
+{% endblock extra_js %}
+
+{% block content %}
+    <div class="row">
+        <h3>New Company</h3>
+    </div>
+
+    <form method="POST" action="" enctype = "multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-6">
+                <label for="form.name.id_for_label">Name: </label>
+                {{ form.name }}
+            </div>
+            <div class="col-sm-6">
+                <label for="form.site.id_for_label">Site URL: </label>
+                {{ form.site }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <label for="form.description.id_for_label">Description: </label>
+                {{ form.description }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="float-sm-right">
+            <input type="submit" id="submit" class="btn btn-primary" value="Submit">
+            <a class="btn btn-danger" href="{% url 'home' %}">Cancel</a>
+        </div>
+    </form>
+{% endblock %}
+

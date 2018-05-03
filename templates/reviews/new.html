@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Company{% endblock %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block extra_js %}
+{% endblock extra_js %}
+
+{% block content %}
+    <div class="row">
+        <h3>Post a New Review</h3>
+    </div>
+
+    <form method="POST" action="" enctype = "multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="form.name.id_for_label">Title: </label>
+                {{ form.title }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="form.body.id_for_label">Description: </label>
+                {{ form.body }}
+            </div>
+        </div>
+
+        <div class="row justify-content-end">
+            <div class="float-sm-right">
+            <input type="submit" id="submit" class="btn btn-primary" value="Submit">
+            <a class="btn btn-danger" href="{% url 'home' %}">Cancel</a>
+        </div>
+    </form>
+{% endblock %}
+
