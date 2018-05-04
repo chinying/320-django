@@ -1,3 +1,5 @@
+env:
+  - SERVER_TYPE=TEST
 language: python
 python:
   - "3.6.5"
