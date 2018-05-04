@@ -5,9 +5,83 @@
 {% block title %}Company{% endblock %}
 
 {% block extra_css %}
+<style>
+#search_results {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*
+    position the autocomplete items to be the same width as the container:
+    left and right 15px because of bootstrap's row class
+    */
+    top: 100%;
+    left: 15px;
+    right: 15px;
+    display: none;
+    background: #FFF;
+}
+
+</style>
 {% endblock extra_css %}
 
 {% block extra_js %}
+<script src="{% static 'js/reviews.js' %}"></script>
+<script>
+// ;(function() {
+
+    function load_companies(term) {
+        var companies_selector = "";
+        var request = new Request("{% url 'reviews:api-company-search' %}?name=" + term, {
+            method: 'GET',
+        });
+
+        fetch(request).then(function(response){
+            return response.json()
+        }).then(function(data) {
+            //console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                companies_selector += ('<a class="search_result_term" href="javascript:add_to_result(\'' + data[i]["name"] + '\')">'+ data[i]["name"] + '</a><br />');
+            }
+
+            $("#search_results").html(companies_selector);
+        }).catch(function(err) {
+            console.log(err)
+        });
+    }
+
+    function add_to_result(obj) {
+        console.log("add_to_result called", obj)
+        $("#id_company").val(obj);
+    }
+
+
+    $(document).ready(function() {
+        //load_companies("");
+        var clearResults = null;
+        $("#id_company").focus(function() {
+            if (clearResults !== null) {
+                clearTimeout(clearResults);
+            }
+            $("#search_results").show();
+        });
+
+        $("#id_company").blur(function() {
+            clearResults = setTimeout(function() {
+                $("#search_results").hide();
+            }, 200);
+        });
+
+        $("#id_company").keyup(_.debounce(function() {
+            const term = $("#id_company").val();
+            load_companies(term);
+        }, 50, { 'maxWait': 200 }));
+    });
+
+//})();
+
+</script>
 {% endblock extra_js %}
 
 {% block content %}
@@ -19,14 +93,22 @@
         {% csrf_token %}
         <div class="row">
             <div class="col-sm-12">
-                <label for="form.name.id_for_label">Title: </label>
+                <label for="form.company.id_for_label">Company: </label>
+                {{ form.company }}
+                {% if form.company.errors %}<p class="alert alert-danger" role="alert">{{ form.company.errors|striptags }}</p>{% endif %}
+                <div id="search_results"></div>
+            </div>
+            <div class="col-sm-12">
+                <label for="form.title.id_for_label">Title: </label>
                 {{ form.title }}
+                {% if form.title.errors %}<p class="alert alert-danger" role="alert">{{ form.title.errors|striptags }}</p>{% endif %}
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
                 <label for="form.body.id_for_label">Description: </label>
                 {{ form.body }}
+                {% if form.body.errors %}<p class="alert alert-danger" role="alert">{{ form.body.errors|striptags }}</p>{% endif %}
             </div>
         </div>
 
