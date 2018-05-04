@@ -44,3 +44,11 @@ class ReviewCreateView(FormView):
 
     def get_form_class(self):
         return ReviewCreateForm
+
+    def form_valid(self, form):
+        cleaned_data = form.cleaned_data
+        company_name = cleaned_data.get("company")
+        company, _ = Company.objects.get_or_create(name=company_name)
+        Review.objects.create(author=self.request.user, company=company, title=cleaned_data.get("title"),
+            body=cleaned_data.get("body"))
+        return super(ReviewCreateView, self).form_valid(form)
