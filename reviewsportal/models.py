@@ -10,5 +10,6 @@ class Company(models.Model):
 
 class Review(models.Model):
     author = models.ForeignKey(User, blank=True)
+    company = models.ForeignKey(Company, null=True)
     title = models.CharField(max_length=200, null=True, blank=True)
     body = models.TextField()
