@@ -20,10 +20,10 @@ class CompanyCreateForm(forms.ModelForm):
         # TODO: validate site
 
 
-class ReviewCreateForm(forms.ModelForm):
-    class Meta:
-        model = Review
-        fields = ("title", "body")
+class ReviewCreateForm(forms.Form):
+    company = forms.CharField(required=True, widget=forms.TextInput())
+    title = forms.CharField(required=True)
+    body = forms.CharField(widget=forms.Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
         super(ReviewCreateForm, self).__init__(*args, **kwargs)
