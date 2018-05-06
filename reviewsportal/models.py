@@ -13,6 +13,7 @@ class Review(models.Model):
     company = models.ForeignKey(Company, null=True)
     title = models.CharField(max_length=200, null=True, blank=True)
     body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     # ratings
     mentorship_rating = models.IntegerField()
