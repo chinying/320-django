@@ -10,9 +10,9 @@
     {% for company in companies %}
         <div class="row">
             <div class="col-sm-12">
-                {{ company.name }}
-                {{ company.site }}
-                {{ company.description }}
+                <a href="{% url 'reviews:company-detail' company.pk %}">{{ company.name }}</a>
+                {{ company.site | default:"-" }}
+                {{ company.description | default:"-" }}
             </div>
         </div>
     {% endfor %}
