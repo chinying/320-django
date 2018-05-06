@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import CreateView, DetailView, ListView, FormView
 
 from reviewsportal.forms import CompanyCreateForm, ReviewCreateForm
@@ -19,7 +19,12 @@ class CompanyListView(ListView):
 
 class CompanyDetailView(DetailView):
     model = Company
-    template_name = "companies/detail.html"
+    template_name = "companies/company_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(CompanyDetailView, self).get_context_data(**kwargs)
+        context["company"] = get_object_or_404(Company, pk=self.kwargs["pk"])
+        return context
 
 
 class CompanyCreateView(FormView):
