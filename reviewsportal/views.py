@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import CreateView, DetailView, ListView, FormView
@@ -47,7 +48,7 @@ class ReviewsListView(ListView):
     pass
 
 
-class ReviewCreateView(FormView):
+class ReviewCreateView(LoginRequiredMixin, FormView):
     template_name = "reviews/new.html"
     success_url = reverse_lazy("reviews:company-list")
 
