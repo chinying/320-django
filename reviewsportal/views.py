@@ -59,5 +59,8 @@ class ReviewCreateView(FormView):
         company_name = cleaned_data.get("company")
         company, _ = Company.objects.get_or_create(name=company_name)
         Review.objects.create(author=self.request.user, company=company, title=cleaned_data.get("title"),
-            body=cleaned_data.get("body"))
+            body=cleaned_data.get("body"), mentorship_rating=cleaned_data.get("mentorship"),
+            work_life_balance_rating=cleaned_data.get("work_life_balance"),
+            personal_growth_rating=cleaned_data.get("personal_growth"),
+            salary=cleaned_data.get("salary"))
         return super(ReviewCreateView, self).form_valid(form)
