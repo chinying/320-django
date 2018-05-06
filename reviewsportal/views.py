@@ -20,6 +20,7 @@ class CompanyListView(ListView):
         context["form"] = CompanyFilterForm(self.request)
         return context
 
+
 class CompanyDetailView(DetailView):
     model = Company
     template_name = "companies/company_detail.html"
