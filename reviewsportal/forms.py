@@ -29,3 +29,12 @@ class ReviewCreateForm(forms.Form):
         super(ReviewCreateForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+
+
+class CompanyFilterForm(forms.Form):
+    company_name = forms.CharField(required=False)
+
+    def __init__(self, request, *args, **kwargs):
+        super(CompanyFilterForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'

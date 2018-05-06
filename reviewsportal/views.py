@@ -2,8 +2,9 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import CreateView, DetailView, ListView, FormView
 
-from reviewsportal.forms import CompanyCreateForm, ReviewCreateForm
+from reviewsportal.forms import CompanyCreateForm, CompanyFilterForm, ReviewCreateForm
 from reviewsportal.models import Company, Review
+from reviewsportal.utils import CompanyFilter
 
 
 class CompanyListView(ListView):
@@ -12,10 +13,12 @@ class CompanyListView(ListView):
     context_object_name = "companies"
 
     def get_queryset(self):
-        qs = Company.objects.all()
-        print(qs)
-        return qs
+        return CompanyFilter(self.request).filter_queryset()
 
+    def get_context_data(self, **kwargs):
+        context = super(CompanyListView, self).get_context_data(**kwargs)
+        context["form"] = CompanyFilterForm(self.request)
+        return context
 
 class CompanyDetailView(DetailView):
     model = Company
