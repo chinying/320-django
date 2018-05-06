@@ -3,6 +3,9 @@
 {% block title%} Companies List {% endblock %}
 
 {% block content %}
+    <form action="">
+        {{ form.company_name }}
+    </form>
     <h2></h2>
     {% for company in companies %}
         <div class="row">
