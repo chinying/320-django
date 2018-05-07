@@ -188,6 +188,64 @@ TEMPLATES = [
     },
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': 'internreviews:django - %(asctime)s - %(module)s - %(levelname)s - %(message)s',
+            'datefmt': '%Y-%m-%dT%H:%M:%S'
+        },
+        'simple': {
+            'format': '%(levelname)s %(asctime)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'stream': os.sys.stdout,
+            'formatter': 'verbose',
+        },
+        'rotatingfile': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': os.path.join(BASE_DIR, 'logs', 'internportal.log'),
+            'when': 'midnight',
+            'backupCount': 10,
+            'utc': True,
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+    },
+    'root': {
+        'handlers': ['rotatingfile'],
+        'level': 'INFO',
+        'formatter': 'verbose',
+        'propagate': True,
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level': 'WARN',
+        },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
+
 SITE_ID = 1
 
 # determine which settings file to read
