@@ -4,6 +4,7 @@ from django import template
 
 register = template.Library()
 
+
 @register.simple_tag
 def modify_site_name(site):
     if not site:
