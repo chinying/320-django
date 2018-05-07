@@ -3,8 +3,6 @@ pytz==2018.4
 humanize==0.5.1
 celery==3.1.25
 django-material==0.8.0
-django-mysql
-mysqlclient
 gunicorn
 django-celery==3.1.17
 pytest==3.0.6
@@ -20,3 +18,4 @@ bcrypt==3.1.4
 cffi==1.11.5
 pycparser==2.18
 djangorestframework==3.8.2
+django-allauth==0.35.0

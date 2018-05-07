@@ -23,6 +23,8 @@ urlpatterns = [
     url(r"^$", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     url(r"^about/$", TemplateView.as_view(template_name="pages/about.html"), name="about"),
     # User management
+    url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/profile', TemplateView.as_view(template_name="users/user_detail.html"), name="user-profile"),
 
     # Your stuff: custom urls includes go here
     url(r'^admin/', admin.site.urls),

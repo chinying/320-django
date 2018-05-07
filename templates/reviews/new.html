@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load staticfiles %}
+{% load widget_tweaks %}
 
 {% block title %}Company{% endblock %}
 
@@ -109,6 +110,59 @@
                 <label for="form.body.id_for_label">Description: </label>
                 {{ form.body }}
                 {% if form.body.errors %}<p class="alert alert-danger" role="alert">{{ form.body.errors|striptags }}</p>{% endif %}
+            </div>
+        </div>
+
+        <hr />
+
+        <h4>Ratings</h4>
+        <div class="row">
+            <div class="col-sm-12 form-check form-check-inline">
+                <div class="form-check form-check-inline">
+                    Mentorship
+                    {% for radio in form.mentorship %}
+                        <label for="{{ radio.id_for_label }}">
+                            <span class="radio">{{ radio.tag }}</span>
+                            {{ radio.choice_label }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 form-check form-check-inline">
+                <div class="form-check form-check-inline">
+                    Work Life Balance
+                    {% for radio in form.work_life_balance %}
+                        <label for="{{ radio.id_for_label }}">
+                            <span class="radio">{{ radio.tag }}</span>
+                            {{ radio.choice_label }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-check form-check-inline">
+                    Personal Growth
+                    {% for radio in form.personal_growth %}
+                        <label for="{{ radio.id_for_label }}">
+                            <span class="radio">{{ radio.tag }}</span>
+                            {{ radio.choice_label }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-12">
+                <label for="form.salary.id_for_label">Salary: </label>
+                {{ form.salary }}
+                {% if form.salary.errors %}<p class="alert alert-danger" role="alert">{{ form.salary.errors|striptags }}</p>{% endif %}
             </div>
         </div>
 
