@@ -22,6 +22,7 @@ class CompanyCreateForm(forms.ModelForm):
 
 class ReviewCreateForm(forms.Form):
     rating_choices = (
+        ("0", "0"),
         ("1", "1"),
         ("2", "2"),
         ("3", "3"),
