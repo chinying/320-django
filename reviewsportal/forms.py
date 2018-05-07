@@ -47,7 +47,7 @@ class ReviewCreateForm(forms.Form):
 
 
 class CompanyFilterForm(forms.Form):
-    company_name = forms.CharField(required=False)
+    company_name = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Search'}))
 
     def __init__(self, request, *args, **kwargs):
         super(CompanyFilterForm, self).__init__(*args, **kwargs)
