@@ -5,7 +5,8 @@ class CompanyFilter(object):
 
     def get_url_parameters(self):
         """
-        this function fetches GET parameters from the URL and returns them as a dictionary for processing
+        this function fetches GET parameters from the URL and returns them
+        as a dictionary for processing
         rtype: dict
         """
         company_name = self.request.GET.get("company_name", None)
@@ -21,6 +22,6 @@ class CompanyFilter(object):
         queryset = Company.objects.all()
 
         if url_parameters["company_name"]:
-            queryset = queryset.filter(name__icontains=url_parameters["company_name"])
+            queryset = queryset.filter(name__icontains=url_parameters["company_name"])[:10]
 
         return queryset
