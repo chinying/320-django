@@ -42,7 +42,8 @@
             return response.json()
         }).then(function(data) {
             //console.log(data);
-            for (var i = 0; i < data.length; i++) {
+            const results_size = Math.min(data.length, 5);
+            for (var i = 0; i < results_size; i++) {
                 companies_selector += ('<a class="search_result_term" href="javascript:add_to_result(\'' + data[i]["name"] + '\')">'+ data[i]["name"] + '</a><br />');
             }
 
