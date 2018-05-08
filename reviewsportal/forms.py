@@ -23,11 +23,11 @@ class CompanyCreateForm(forms.ModelForm):
 class ReviewCreateForm(forms.Form):
     rating_choices = (
         ("0", "0"),
-        ("1", "1"),
-        ("2", "2"),
-        ("3", "3"),
-        ("4", "4"),
-        ("5", "5"),
+        ("20", "1"),
+        ("40", "2"),
+        ("60", "3"),
+        ("80", "4"),
+        ("100", "5"),
     )
 
     company = forms.CharField(required=True, widget=forms.TextInput())
