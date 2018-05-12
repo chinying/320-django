@@ -7,6 +7,12 @@ class Company(models.Model):
     site = models.CharField(max_length=200, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
 
+    def get_reviews(self, sortby="created_at"):
+        reviews = self.review_set.all().order_by('-created_at')
+        if sortby == "overall_rating":
+            reviews = reviews.order_by('-overall_rating')
+        return reviews
+
 
 class Review(models.Model):
     author = models.ForeignKey(User, blank=True)
