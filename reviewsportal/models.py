@@ -13,6 +13,16 @@ class Company(models.Model):
             reviews = reviews.order_by('-overall_rating')
         return reviews
 
+    # can be optimised with caching
+    def compute_rating(self):
+        # for divide by 0 errors
+        if self.review_set.count() == 0:
+            return 0
+        rating = 0.0
+        for review in self.review_set.all():
+            rating += review.overall_rating
+        return rating / self.review_set.count()
+
 
 class Review(models.Model):
     author = models.ForeignKey(User, blank=True)

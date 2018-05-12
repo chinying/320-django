@@ -1,28 +1,29 @@
 {% extends "base.html" %}
+{% load reviews_tags %}
 
 {% block title%} Company Detail - {{ company.name }} {% endblock %}
 
 {% block content %}
+{% modify_site_name company.site as company_site %}
+{% score_out_of_five company.compute_rating as score %}
     <h2></h2>
     <div class="row">
         <div class="col-sm-12">
-            <table class="table table-bordered">
-                <tr>
-                    <th>Company name</th>
-                    <td>{{ company.name }}</td>
-                </tr>
-                <tr>
-                    <th>URL</th>
-                    <td>{{ company.site | default:"-" }}</td>
-                </tr>
-                <tr>
-                    <th>Description of Company</th>
-                    <td>{{ company.description | default:"-" }}</td>
-                </tr>
-
-            </table>
-            <div>
-                <a class="btn btn-primary float-right" href="{% url 'reviews:review-new' %}">Write A Review</a>
+            <div class="company-fields p-3">
+                <h3>{{ company.name }}</h3>
+                <span class="float-right"><i class="fa fa-star mr-1" aria-hidden="true"></i>{{ score | floatformat }} / 5</span>
+                <p>
+                    <i class="fa fa-globe mr-1" aria-hidden="true"></i>
+                    {% if company.site %} <a href="{{ company_site }}"> {% endif %}
+                        {{ company_site }}
+                    {% if company.site %} </a> {% endif %}
+                </p>
+                <p>
+                    {{ company.description }}
+                </p>
+                <div>
+                    <a class="btn btn-primary float-right" href="{% url 'reviews:review-new' %}">Write A Review</a>
+                </div>
             </div>
         </div>
     </div>
@@ -33,16 +34,18 @@
     <div class="row mb-3">
         <div class="col-sm-12">
             {% if company.review_set.all %}
-                <h3>Reviews</h3>
-                <div class="dropdown float-right">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort By
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="?sort=date">Latest</a>
-                        <a class="dropdown-item" href="?sort=rating">Ratings</a>
+                <h3>Reviews
+                    <div class="dropdown float-right">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sort By
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="?sort=date">Latest</a>
+                            <a class="dropdown-item" href="?sort=rating">Ratings</a>
+                        </div>
                     </div>
-                </div>
+                </h3>
+
             {% endif %}
         </div>
     </div>
@@ -119,8 +122,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm review-body-panel">
-                        <h4>{{ review.title }}</h4>
+                    <div class="col-sm review-body-panel p-2 px-3">
+                        <h4>{{ review.title | capfirst }}</h4>
                         <p>Added on {{ review.created_at }}</p>
                         <p>{{ review.body }}</p>
                     </div>

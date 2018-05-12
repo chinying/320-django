@@ -15,3 +15,8 @@ def modify_site_name(site):
     path = site.path if site.netloc else ''
     site = ParseResult(site.scheme, netloc, path, *site[3:])
     return site.geturl()
+
+
+@register.simple_tag
+def score_out_of_five(score):
+    return score / 20
