@@ -34,9 +34,9 @@ class ReviewCreateForm(forms.Form):
     title = forms.CharField(required=True)
     body = forms.CharField(widget=forms.Textarea, required=False)
 
-    mentorship = forms.ChoiceField(choices=rating_choices, widget=forms.RadioSelect)
-    work_life_balance = forms.ChoiceField(choices=rating_choices, widget=forms.RadioSelect)
-    personal_growth = forms.ChoiceField(choices=rating_choices, widget=forms.RadioSelect)
+    mentorship = forms.TypedChoiceField(choices=rating_choices, coerce=int, widget=forms.RadioSelect)
+    work_life_balance = forms.TypedChoiceField(choices=rating_choices, coerce=int, widget=forms.RadioSelect)
+    personal_growth = forms.TypedChoiceField(choices=rating_choices, coerce=int, widget=forms.RadioSelect)
 
     salary = forms.IntegerField(required=False)
 
