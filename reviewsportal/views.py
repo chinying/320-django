@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import CreateView, DetailView, ListView, FormView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView, ListView, FormView
 
 from reviewsportal.forms import CompanyCreateForm, CompanyFilterForm, ReviewCreateForm
 from reviewsportal.models import Company, Review
@@ -57,9 +58,10 @@ class ReviewsListView(ListView):
     pass
 
 
-class ReviewCreateView(LoginRequiredMixin, FormView):
+class ReviewCreateView(SuccessMessageMixin, LoginRequiredMixin, FormView):
     template_name = "reviews/new.html"
     success_url = reverse_lazy("reviews:company-list")
+    success_message = "Thank you for submitting your review!"
 
     def get_form_class(self):
         return ReviewCreateForm
