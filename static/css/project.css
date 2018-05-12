@@ -1,13 +1,48 @@
-/* These styles are generated from project.scss. */
-
 .alert-debug {
-  color: black;
-  background-color: white;
+  background-color: #fff;
   border-color: #d6e9c6;
+  color: #000;
 }
 
 .alert-error {
-  color: #b94a48;
   background-color: #f2dede;
   border-color: #eed3d7;
+  color: #b94a48;
 }
+
+.card-columns {
+  column-count: 3;
+}
+
+.review-container {
+  border: solid #a8a8a8 1px;
+}
+
+/* Ratings taken from https://codepen.io/Bluetidepro/pen/GkpEa https://codepen.io/filcp/pen/QvZVOg */
+.star-rating, .back-stars, .front-stars {
+  display: flex;
+}
+
+.star-rating {
+  align-items: center;
+  font-size: 1.5em;
+  justify-content: flex-end;
+}
+
+.back-stars {
+  color: #16a085;
+  position: relative;
+}
+
+.front-stars {
+  color: #16a085;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+}
+
+.ratings-container {
+  background: #ddd;
+}
+
+/*# sourceMappingURL=project.css.map */

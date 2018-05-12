@@ -13,5 +13,4 @@ class CompanyListView(APIView):
             name = query_params.get('name')
             if name:
                 resp = Company.objects.filter(name__icontains=name).values('id', 'name')
-        print(resp)
         return Response(resp, status=status.HTTP_200_OK)

@@ -35,3 +35,39 @@ $red: #b94a48;
   border-color: $dark-pink;
   color: $red;
 }
+
+.card-columns {
+  column-count: 3;
+}
+
+.review-container {
+  border: solid #a8a8a8 1px;
+}
+
+/* Ratings taken from https://codepen.io/Bluetidepro/pen/GkpEa https://codepen.io/filcp/pen/QvZVOg */
+$stars-color: #16a085;
+%flex-display {
+  display: flex;
+}
+.star-rating {
+  @extend %flex-display;
+  align-items: center;
+  font-size: 1.5em;
+  justify-content: flex-end;
+}
+.back-stars {
+  @extend %flex-display;
+  color: $stars-color;
+  position: relative;
+}
+.front-stars {
+  @extend %flex-display;
+  color: $stars-color;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+}
+
+.ratings-container {
+  background: #ddd;
+}

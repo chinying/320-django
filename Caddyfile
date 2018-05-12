@@ -1,0 +1,10 @@
+yoursitename {
+    tls off
+    root ./320-django/
+    proxy / http://localhost:5000 {
+        transparent
+    }
+    log stdout
+    errors stdout
+    gzip
+}

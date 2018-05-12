@@ -1,19 +1,35 @@
 {% extends "base.html" %}
+{% load staticfiles reviews_tags %}
 
 {% block title%} Companies List {% endblock %}
 
 {% block content %}
     <form action="">
+        <label for="form.company.id_for_label">Search for company <i class="fa fa-search"></i></label>
         {{ form.company_name }}
     </form>
     <h2></h2>
+    <div class="card-columns">
     {% for company in companies %}
-        <div class="row">
-            <div class="col-sm-12">
-                <a href="{% url 'reviews:company-detail' company.pk %}">{{ company.name }}</a>
-                {{ company.site | default:"-" }}
-                {{ company.description | default:"-" }}
+        {% modify_site_name company.site as company_site %}
+        <div class="card card-custom">
+            <img class="card-img" src="http://via.placeholder.com/350x150" alt="Card image cap" />
+            <div class="card-body">
+                <div class="card-title">
+                    <h5>{{ company.name }}</h5>
+                </div>
+                <div class="card-text">
+                    <i class="fa fa-globe" aria-hidden="true"></i>
+                    {% if company.site %} <a href="{{ company_site }}"> {% endif %}
+                        {{ company_site }}
+                    {% if company.site %} </a> {% endif %}
+                    <p>
+                        {{ company.description | default:"-" | truncatechars:150 }}
+                    </p>
+                </div>
+                <a href="{% url 'reviews:company-detail' company.pk %}" class="btn btn-primary">Read more</a>
             </div>
         </div>
     {% endfor %}
+    </div>
 {% endblock %}
