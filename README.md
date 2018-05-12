@@ -59,4 +59,4 @@ sass compilation `sass --watch ./static/sass:./static/css --style compressed` (y
 
 ## Credits
 - [Django Cookiecutter](https://github.com/pydanny/cookiecutter-django), a lot of boilerplate was adapted from the generated code.
-- [Flatly Bootstrap Theme](https://bootswatch.com/flatly/), made by [https://thomaspark.co/](Thomas Park), MIT licenced.
+- [Flatly Bootstrap Theme](https://bootswatch.com/flatly/), made by [Thomas Park](https://thomaspark.co/), MIT licenced.
