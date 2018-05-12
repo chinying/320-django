@@ -16,7 +16,7 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 class CompanyListView(APIView):
     def get(self, request, *args, **kwargs):
-        resp = Company.objects.values('id', 'name')
+        resp = Company.objects.values('id', 'name')[:5]
         query_params = request.query_params
         if 'name' in query_params:
             name = query_params.get('name')
