@@ -57,7 +57,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 sass compilation `sass --watch ./static/sass:./static/css --style compressed` (yet to write grunt / gulp for this)
 
 
-##Credits
-
+## Credits
 - [Django Cookiecutter](https://github.com/pydanny/cookiecutter-django), a lot of boilerplate was adapted from the generated code.
 - [Flatly Bootstrap Theme](https://bootswatch.com/flatly/), made by [https://thomaspark.co/](Thomas Park), MIT licenced.
