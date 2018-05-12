@@ -20,4 +20,13 @@ class Review(models.Model):
     work_life_balance_rating = models.IntegerField()
     personal_growth_rating = models.IntegerField()
 
+    # this field is derived from the above ratings
+    overall_rating = models.FloatField(blank=True, db_index=True)
+
     salary = models.IntegerField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        ratings = [self.mentorship_rating, self.work_life_balance_rating,
+            self.personal_growth_rating]
+        self.overall_rating = sum(ratings) / len(ratings)
+        super(Review, self).save(*args, **kwargs)
