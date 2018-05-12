@@ -28,7 +28,16 @@ class CompanyDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CompanyDetailView, self).get_context_data(**kwargs)
-        context["company"] = get_object_or_404(Company, pk=self.kwargs["pk"])
+        company = get_object_or_404(Company, pk=self.kwargs["pk"])
+        context["company"] = company
+
+        whitelist = {"date": "created_at", "rating": "overall_rating"}
+        sort_paramater = self.request.GET.get("sort")
+        sort = whitelist[sort_paramater] if sort_paramater in whitelist else None
+        if sort:
+            context["sorted_reviews"] = company.get_reviews(sortby=sort)
+        else:
+            context["sorted_reviews"] = company.get_reviews()
         return context
 
 

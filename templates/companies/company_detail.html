@@ -30,10 +30,26 @@
     <hr />
 
 
+    <div class="row mb-3">
+        <div class="col-sm-12">
+            {% if company.review_set.all %}
+                <h3>Reviews</h3>
+                <div class="dropdown float-right">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort By
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="?sort=date">Latest</a>
+                        <a class="dropdown-item" href="?sort=rating">Ratings</a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-sm-12">
-            {% if company.review_set.all %} <h3>Reviews</h3> {% endif %}
-            {% for review in company.review_set.all %}
+            {% for review in sorted_reviews %}
                 <div class="row review-container">
                     <div class="pt-2 col-sm-4 ratings-container">
                         <div class="row">
