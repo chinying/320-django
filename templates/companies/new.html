@@ -34,11 +34,13 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="float-sm-right">
-            <input type="submit" id="submit" class="btn btn-primary" value="Submit">
+        <hr />
+
+        <div class="row justify-content-end">
+            <input type="submit" id="submit" class="btn btn-primary mr-1" value="Submit">
             <a class="btn btn-danger" href="{% url 'home' %}">Cancel</a>
         </div>
+
     </form>
 {% endblock %}
 

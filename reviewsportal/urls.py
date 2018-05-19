@@ -7,6 +7,7 @@ app_name = "reviews"
 urlpatterns = [
     # apis
     url(r"^api/company/$", api_views.CompanyListView.as_view(), name="api-company-search"),
+    url(r"^api/reviews/$", api_views.GetCompanyReviews.as_view(), name="api-reviews-of-company"),
 
     url(r"^company/$", views.CompanyListView.as_view(), name="company-list"),
     url(r"^company/new$", views.CompanyCreateView.as_view(), name="company-new"),

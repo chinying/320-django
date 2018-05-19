@@ -2,12 +2,13 @@
 
 {% load i18n %}
 {% load account socialaccount %}
+{% load widget_tweaks %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block inner %}
 
-<h1>{% trans "Sign In" %}</h1>
+<h2>{% trans "Sign In" %}</h2>
 
 {% get_providers as socialaccount_providers %}
 
@@ -33,14 +34,43 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
 {% endif %}
 
+{% if form.errors %}
+    <p class="alert alert-danger">
+        Your username and password didn't match.
+        Please try again.
+    </p>
+{% endif %}
 <form class="login" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
-  {{ form.as_p }}
+  <div class="container">
+    <div class="row justify-content-md-left">
+      <div class="col-sm-12">
+        <label for="{{ form.login.id_for_label }}"><i class="fa fa-user" aria-hidden="true"></i> Username</label>
+        {{ form.login | add_class:"form-control" }}
+      </div>
+    </div>
+    <div class="row justify-content-md-left my-2">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <label for="{{ form.login.id_for_password }}"><i class="fa fa-lock" aria-hidden="true"></i> Password</label>
+          {{ form.password | add_class:"form-control" }}
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-md-left">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <p>{{ form.remember | add_class:"mr-1" }} Remember me?<a class="button secondaryAction float-right" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a> </p>
+        </div>
+      </div>
+    </div>
+  </div>
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+    <div class="row mt-2">
+      <button class="primaryAction btn btn-primary ml-3" type="submit">{% trans "Sign In" %}</button>
+    </div>
 </form>
 
 {% endblock %}

@@ -3,7 +3,7 @@
 {% load staticfiles %}
 {% load widget_tweaks %}
 
-{% block title %}Company{% endblock %}
+{% block title %} Add a Review {% endblock %}
 
 {% block extra_css %}
 <style>
@@ -50,8 +50,7 @@
             return response.json()
         }).then(function(data) {
             //console.log(data);
-            const results_size = Math.min(data.length, 5);
-            for (var i = 0; i < results_size; i++) {
+            for (var i = 0; i < data.length; i++) {
                 companies_selector += ('<a class="search_result_term" href="javascript:add_to_result(\'' + data[i]["name"] + '\')">'+ data[i]["name"] + '</a><br />');
             }
 
@@ -177,8 +176,7 @@
         <hr />
 
         <div class="row justify-content-end">
-            <div class="float-sm-right">
-            <input type="submit" id="submit" class="btn btn-primary" value="Submit">
+            <input type="submit" id="submit" class="btn btn-primary mr-1" value="Submit">
             <a class="btn btn-danger" href="{% url 'home' %}">Cancel</a>
         </div>
     </form>

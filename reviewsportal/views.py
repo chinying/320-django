@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.urlresolvers import reverse, reverse_lazy
-from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic import CreateView, DetailView, ListView, FormView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.core.urlresolvers import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView, ListView, FormView
 
 from reviewsportal.forms import CompanyCreateForm, CompanyFilterForm, ReviewCreateForm
 from reviewsportal.models import Company, Review
@@ -28,7 +29,16 @@ class CompanyDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(CompanyDetailView, self).get_context_data(**kwargs)
-        context["company"] = get_object_or_404(Company, pk=self.kwargs["pk"])
+        company = get_object_or_404(Company, pk=self.kwargs["pk"])
+        context["company"] = company
+
+        whitelist = {"date": "created_at", "rating": "overall_rating"}
+        sort_paramater = self.request.GET.get("sort")
+        sort = whitelist[sort_paramater] if sort_paramater in whitelist else None
+        if sort:
+            context["sorted_reviews"] = company.get_reviews(sortby=sort)
+        else:
+            context["sorted_reviews"] = company.get_reviews()
         return context
 
 
@@ -48,9 +58,10 @@ class ReviewsListView(ListView):
     pass
 
 
-class ReviewCreateView(LoginRequiredMixin, FormView):
+class ReviewCreateView(SuccessMessageMixin, LoginRequiredMixin, FormView):
     template_name = "reviews/new.html"
     success_url = reverse_lazy("reviews:company-list")
+    success_message = "Thank you for submitting your review!"
 
     def get_form_class(self):
         return ReviewCreateForm
