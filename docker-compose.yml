@@ -1,0 +1,14 @@
+version: '2'
+
+volumes:
+  caddy: {}
+
+services:
+  caddy:
+    volumes:
+      - caddy:/root/.caddy
+    network_mode: "host"
+    image: "fyp_production_caddy:latest"
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
