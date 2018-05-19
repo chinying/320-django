@@ -56,6 +56,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 ### SASS
 sass compilation `sass --watch ./static/sass:./static/css --style compressed` (yet to write grunt / gulp for this)
 
+## Production
+`python manage.py collectstatic --noinput`
+
+`docker build -t "fyp_production_caddy" .`
+
+`./deploy.sh`
+
+`docker-compose up -d`
 
 ## Credits
 - [Django Cookiecutter](https://github.com/pydanny/cookiecutter-django), a lot of boilerplate was adapted from the generated code.
